@@ -1,0 +1,22 @@
+Disable use of syslog for shadow-native tools
+
+Disable use of syslog to prevent sysroot user and group additions from
+writing entries to the host's syslog. This patch should only be used
+with the shadow-native recipe.
+
+Upstream-Status: Inappropriate [OE specific configuration]
+Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+
+Index: shadow-4.11.1/configure.ac
+===================================================================
+--- shadow-4.11.1.orig/configure.ac
++++ shadow-4.11.1/configure.ac
+@@ -204,7 +204,7 @@ AC_DEFINE_UNQUOTED(PASSWD_PROGRAM, "$sha
+ 	[Path to passwd program.])
+ 
+ dnl XXX - quick hack, should disappear before anyone notices :).
+-AC_DEFINE(USE_SYSLOG, 1, [Define to use syslog().])
++AC_DEFINE(USE_SYSLOG, 0, [Define to use syslog().])
+ if test "$ac_cv_func_ruserok" = "yes"; then
+ 	AC_DEFINE(RLOGIN, 1, [Define if login should support the -r flag for rlogind.])
+ 	AC_DEFINE(RUSEROK, 0, [Define to the ruserok() "success" return value (0 or 1).])
